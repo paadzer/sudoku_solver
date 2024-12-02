@@ -8,7 +8,16 @@ def solve_sudoku(board):
     
     Returns:
     list of list of int or None: The solved Sudoku board, or None if unsolvable.
+    
+    Raises:
+    ValueError: If the input board is invalid (wrong size or invalid numbers).
     """
+    # Validate the input board
+    if len(board) != 9 or not all(len(row) == 9 for row in board):
+        raise ValueError("The board must be a 9x9 grid.")
+    if not all(all(0 <= cell <= 9 for cell in row) for row in board):
+        raise ValueError("The board must contain only integers between 0 and 9.")
+
     def is_valid(row, col, num):
         for x in range(9):
             if board[row][x] == num or board[x][col] == num:
@@ -34,5 +43,5 @@ def solve_sudoku(board):
         return True
 
     if not solve():
-        return None  
+        return None
     return board
