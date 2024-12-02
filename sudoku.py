@@ -34,5 +34,5 @@ def solve_sudoku(board):
         return True
 
     if not solve():
-        return None  # Instead of raising an error, return None
+        return None  
     return board
