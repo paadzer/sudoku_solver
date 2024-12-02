@@ -20,6 +20,18 @@ def solve_sudoku(board):
                     return False
         return True
 
+    def is_initial_board_valid():
+        # Check for duplicates in rows, columns, and 3x3 grids
+        for row in range(9):
+            for col in range(9):
+                num = board[row][col]
+                if num != 0:
+                    board[row][col] = 0  # Temporarily clear the cell
+                    if not is_valid(row, col, num):
+                        return False
+                    board[row][col] = num  # Restore the cell
+        return True
+
     def solve():
         for row in range(9):
             for col in range(9):
@@ -38,6 +50,8 @@ def solve_sudoku(board):
         raise ValueError("Invalid board size")
     if any(num not in range(10) for row in board for num in row):
         raise ValueError("Invalid number in board")
+    if not is_initial_board_valid():
+        raise ValueError("Invalid initial board configuration")
 
     if not solve():
         raise ValueError("Puzzle is unsolvable")
